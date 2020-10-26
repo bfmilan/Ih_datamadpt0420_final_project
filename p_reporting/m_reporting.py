@@ -1,32 +1,24 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-# reporting functions
+def reporting():
+	import requests
+	import os
+	print('...lets call the api again...')
 
-'''
-def visualize_barplot(df,title):
-    fig, ax = plt.subplots(figsize=(15,8))
-    chart = sns.barplot(data=df, x='Make', y='Combined MPG')
-    plt.title(title + "\n", fontsize=16)
-    return chart
+	import tweepy
 
-def visualize_lineplot(df,title):
-    fig, ax = plt.subplots(figsize=(15,8))
-    chart = sns.lineplot(data=df, x='Make', y='Combined MPG')
-    plt.title(title + "\n", fontsize=16)
-    return chart
-'''
 
-def plotting_function(df,title,args):
-    fig, ax = plt.subplots(figsize=(16,8))
-    plt.title(title + "\n", fontsize=16)
-    if args.bar == True:
-        sns.barplot(data=df, x='Make', y='Combined MPG')
-        return fig
-    elif args.line == True:
-        sns.lineplot(data=df, x='Make', y='Combined MPG')
-        return fig
+	auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+	auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
-def save_viz(fig,title):
-    fig.savefig('./data/results/' + title + '.png')
+	api = tweepy.API(auth, wait_on_rate_limit=True)
+	print('api is with us!...')
+
+
+	message = f'@BiciMAD status today'
+	message
+
+	images = ('/Users/Blanca/ironhack/gitrepo/ih_datamadpt0420_final_project/data/results/tweet_sentiment1.png', '/Users/Blanca/ironhack/gitrepo/ih_datamadpt0420_final_project/data/results/tweet_sentiment2.png')
+	media_ids = [api.media_upload(i).media_id_string for i in images]
+	tweet = api.update_status(status=message, media_ids=media_ids)
+	print('TWEET has been posted!...')
+
